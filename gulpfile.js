@@ -52,3 +52,12 @@ exports.default = series(
     cacheBustTask,
     watchTask
 );
+
+const gulp = require('gulp');
+const compiler = require('webpack');
+const webpack = require('webpack-stream');
+gulp.task('default', function() {
+  return gulp.src('src/components/js/main.js')
+    .pipe(webpack())
+    .pipe(gulp.dest('dist/'));
+});

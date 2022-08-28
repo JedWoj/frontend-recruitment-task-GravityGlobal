@@ -10,13 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/0cb87f8cbd.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="dist/main.css">
+    <script defer type="module" src="dist/main.js"></script>
     <title>Jędrzej Wojcieszak - Recruitment task</title>
 </head>
 
 <body>
     <section class="content">
         <figure class="content__img-container">
-            <img srcset="images\sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_1_1,c_fill,g_auto__c_scale,w_200.jpg 200w, images\sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_1_1,c_fill,g_auto__c_scale,w_450.jpg 450w, images\sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_1_1,c_fill,g_auto__c_scale,w_630.jpg 630w, images\sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_1_1,c_fill,g_auto__c_scale,w_767.jpg 767w"
+            <img srcset="..\images\sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_1_1,c_fill,g_auto__c_scale,w_200.jpg 200w, ..\images\sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_1_1,c_fill,g_auto__c_scale,w_450.jpg 450w, ..\images\sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_1_1,c_fill,g_auto__c_scale,w_630.jpg 630w, ..\images\sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_1_1,c_fill,g_auto__c_scale,w_767.jpg 767w"
                 sizes="(max-width: 200px) 200px, (max-width: 450px) 450px, (max-width: 630px) 630px, (max-width: 767px),
             767px, (max-width: 450px)" alt="view of sandy beach" />
         </figure>
@@ -28,12 +29,12 @@
                 Infinitely scalable, feature-rich and cloud-native data managment and protection for modern and legacy
                 infrastructures and SaaS platforms, managed via a single app with no hardware required.
             </p>
-            <button class="button" type="button">
+            <button class="button button--modal" type="button">
                 Button
             </button>
         </div>
     </section>
-    <!-- <section class="modal">
+    <section class="modal modal__hidden">
         <div class="modal__wrapper">
             <h2 class="modal__heading">
                 Alert!
@@ -45,7 +46,7 @@
                 <i class="fa-solid fa-x"></i>
             </div>
         </div>
-    </section> -->
+    </section>
 </body>
 
 </html>
