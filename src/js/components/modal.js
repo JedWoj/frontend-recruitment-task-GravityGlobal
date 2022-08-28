@@ -36,7 +36,7 @@ export default class Modal {
 
     handleClickTarget(e) {
        const {target} = e;
-       if (target.closest('.modal__exit-icon') || !target.closest('.modal__wrapper')) {
+        if (target.closest('.modal__exit-icon') || !target.closest('.modal__wrapper')) {
             this.modalVisibilityHandler();
         } 
     }
