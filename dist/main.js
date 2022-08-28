@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -33,16 +33,18 @@
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmory imports with the correct context
+/******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
 /******/
-/******/ 	// define getter function for harmory exports
+/******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		Object.defineProperty(exports, name, {
-/******/ 			configurable: false,
-/******/ 			enumerable: true,
-/******/ 			get: getter
-/******/ 		});
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -66,28 +68,50 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 class Modal {
-    constructor() {
-        console.log('jest')
+    constructor(name) {
+        this.modal = document.querySelector([name]);
+        this.btnModalHandler();
+        this.getClickTarget();
+    }
+
+    modalVisibilityHandler() {
+        this.modal.classList.toggle('modal__hidden');
+    }
+
+    btnModalHandler() {
+        const btn = document.querySelector('.button--modal')
+        btn.addEventListener('click', this.modalVisibilityHandler.bind(this))
+    }
+
+    getClickTarget() {
+        this.modal.addEventListener('click', (e) => {
+            this.handleClickTarget(e)
+        })
+    }
+
+    handleClickTarget(e) {
+       const {target} = e;
+       (target.closest('.modal__exit-icon') || target.closest('.modal__wrapper') === null) ? this.modalVisibilityHandler() : null; 
     }
 }
-/* harmony export (immutable) */ exports["a"] = Modal;
+/* harmony export (immutable) */ __webpack_exports__["a"] = Modal;
 
 
-const modal = new Modal();
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Modal__ = __webpack_require__(0);
 
 
-const modalAlert = new __WEBPACK_IMPORTED_MODULE_0__components_Modal__["a" /* default */]();
+const modalAlert = new __WEBPACK_IMPORTED_MODULE_0__components_Modal__["a" /* default */]('.modal');
 
-/***/ }
+/***/ })
 /******/ ]);

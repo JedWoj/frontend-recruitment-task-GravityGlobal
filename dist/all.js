@@ -1,1 +1,1 @@
-import Modal from"./components/Modal";const modalAlert=new Modal;export default class Modal{constructor(){console.log("jest")}}const modal=new Modal;
+import Modal from"./components/Modal";const modalAlert=new Modal(".modal");export default class Modal{constructor(o){console.log(o),console.log("loo")}}
