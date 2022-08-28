@@ -30,14 +30,14 @@ export default class Modal {
 
     getClickTarget() {
         this.modal.addEventListener('click', (e) => {
-            this.handleClickTarget(e)
+            this.handleClickTarget(e);
         })
     }
 
     handleClickTarget(e) {
        const {target} = e;
        if (target.closest('.modal__exit-icon') || !target.closest('.modal__wrapper')) {
-            this.modalVisibilityHandler()
+            this.modalVisibilityHandler();
         } 
     }
 
@@ -49,7 +49,7 @@ export default class Modal {
     }
 
     resetBtnHandler() {
-        this.resetBtn.addEventListener('click', this.resetCounter.bind(this))
+        this.resetBtn.addEventListener('click', this.resetCounter.bind(this));
     }
 
     resetCounter() {
