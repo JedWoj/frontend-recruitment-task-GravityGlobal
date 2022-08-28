@@ -71,11 +71,19 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_helpers__ = __webpack_require__(2);
+
+
 class Modal {
     constructor(name) {
+        this.count = 0;
+        this.counter = document.querySelector('.modal__clicked-info');
+        this.resetBtn = document.querySelector('.button--reset');
         this.modal = document.querySelector([name]);
         this.btnModalHandler();
         this.getClickTarget();
+        this.resetBtnHandler();
+        this.handleLocalStorage();
     }
 
     modalVisibilityHandler() {
@@ -84,7 +92,10 @@ class Modal {
 
     btnModalHandler() {
         const btn = document.querySelector('.button--modal')
-        btn.addEventListener('click', this.modalVisibilityHandler.bind(this))
+        btn.addEventListener('click',() => {
+            this.modalVisibilityHandler();
+            this.incrementCounter();
+        })
     }
 
     getClickTarget() {
@@ -96,6 +107,40 @@ class Modal {
     handleClickTarget(e) {
        const {target} = e;
        (target.closest('.modal__exit-icon') || target.closest('.modal__wrapper') === null) ? this.modalVisibilityHandler() : null; 
+    }
+
+    incrementCounter() {
+        this.count++;
+        this.useStorage(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["a" /* SET */]);
+        this.counter.textContent = `${this.count} times`;
+        this.count > 5 ? this.resetBtn.classList.remove('button__hidden') : this.resetBtn.classList.add('button__hidden');
+    }
+
+    resetBtnHandler() {
+        this.resetBtn.addEventListener('click', () => {
+            this.count = 0;
+            this.modalVisibilityHandler();
+        })
+    }
+
+    handleLocalStorage() {
+       localStorage.getItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["b" /* COUNT */]) === null ? this.useStorage(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["a" /* SET */]) : this.useStorage(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["c" /* GET */]);
+    }
+
+    useStorage(action) {
+        switch (action) {
+            case __WEBPACK_IMPORTED_MODULE_0__utils_helpers__["c" /* GET */] :
+                const storage = JSON.parse(localStorage.getItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["b" /* COUNT */]));
+                this.count = storage;
+                break;
+            case __WEBPACK_IMPORTED_MODULE_0__utils_helpers__["d" /* CLEAR */] :
+                this.count = 0;
+                storage = localStorage.setItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["b" /* COUNT */], JSON.stringify(this.count));
+                break;
+            case __WEBPACK_IMPORTED_MODULE_0__utils_helpers__["a" /* SET */] : 
+                localStorage.setItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["b" /* COUNT */], JSON.stringify(this.count));
+                break;
+        }
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Modal;
@@ -112,6 +157,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 const modalAlert = new __WEBPACK_IMPORTED_MODULE_0__components_Modal__["a" /* default */]('.modal');
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CLEAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return GET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return COUNT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET; });
+const COUNT = 'COUNT';
+const CLEAR = 'CLEAR';
+const GET = 'GET';
+const SET = 'SET';
+
+
 
 /***/ })
 /******/ ]);

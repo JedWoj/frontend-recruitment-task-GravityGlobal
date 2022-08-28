@@ -7,4 +7,13 @@
     font-weight: 700;
     color: $color-lightest;
     cursor: pointer;
+
+    &__hidden {
+        display: none;
+    }
+
+    &--reset {
+        width: min-content;
+        margin-left: auto;
+    }
 }
