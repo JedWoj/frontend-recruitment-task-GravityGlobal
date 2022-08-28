@@ -1,3 +1,11 @@
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 87.5em; //1400px
+$bp-larger: 75em; // 1200px
+$bp-large: 62.5em; //1000px
+$bp-medium: 48.125em; // 770px
+$bp-small: 39.375em; // 630px;
+$bp-smallest: 28.125em; // 450px;
+
 *,
 *::after,
 *::before {
