@@ -1,23 +1,27 @@
-import { COUNT,CLEAR,GET, SET } from "../utils/helpers";
+import { COUNT,CLEAR,GET,SET } from "../utils/helpers";
 
 export default class Modal {
-    constructor(name) {
+    constructor(modalName, btnModalName, btnResetName) {
         this.count = 0;
-        this.counter = document.querySelector('.modal__clicked-info');
-        this.resetBtn = document.querySelector('.button--reset');
-        this.modal = document.querySelector([name]);
-        this.btnModalHandler();
+        this.modal = document.querySelector(`.${[modalName]}`);
+        this.counter = document.querySelector(`.${[modalName]}__count`);
+        this.resetBtn = document.querySelector(`.${[btnResetName]}`);
+        this.mountingComponent(btnModalName);
+    }
+
+    mountingComponent(btnModalName) {
+        this.btnModalHandler(btnModalName);
+        this.handleLocalStorage();
         this.getClickTarget();
         this.resetBtnHandler();
-        this.handleLocalStorage();
     }
 
     modalVisibilityHandler() {
-        this.modal.classList.toggle('modal__hidden');
+        this.modal.classList.toggle(`modal__hidden`);
     }
 
-    btnModalHandler() {
-        const btn = document.querySelector('.button--modal')
+    btnModalHandler(btnModalName) {
+        const btn = document.querySelector(`.${[btnModalName]}`);
         btn.addEventListener('click',() => {
             this.modalVisibilityHandler();
             this.incrementCounter();
@@ -32,7 +36,9 @@ export default class Modal {
 
     handleClickTarget(e) {
        const {target} = e;
-       (target.closest('.modal__exit-icon') || target.closest('.modal__wrapper') === null) ? this.modalVisibilityHandler() : null; 
+       if (target.closest('.modal__exit-icon') || !target.closest('.modal__wrapper')) {
+            this.modalVisibilityHandler()
+        } 
     }
 
     incrementCounter() {
@@ -43,10 +49,12 @@ export default class Modal {
     }
 
     resetBtnHandler() {
-        this.resetBtn.addEventListener('click', () => {
-            this.count = 0;
-            this.modalVisibilityHandler();
-        })
+        this.resetBtn.addEventListener('click', this.resetCounter.bind(this))
+    }
+
+    resetCounter() {
+        this.useStorage(CLEAR);
+        this.modalVisibilityHandler();
     }
 
     handleLocalStorage() {
@@ -56,12 +64,12 @@ export default class Modal {
     useStorage(action) {
         switch (action) {
             case GET :
-                const storage = JSON.parse(localStorage.getItem(COUNT));
-                this.count = storage;
+                const getStorage = JSON.parse(localStorage.getItem(COUNT));
+                this.count = getStorage;
                 break;
             case CLEAR :
                 this.count = 0;
-                storage = localStorage.setItem(COUNT, JSON.stringify(this.count));
+                localStorage.setItem(COUNT, JSON.stringify(this.count));
                 break;
             case SET : 
                 localStorage.setItem(COUNT, JSON.stringify(this.count));

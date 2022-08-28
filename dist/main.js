@@ -75,23 +75,27 @@
 
 
 class Modal {
-    constructor(name) {
+    constructor(modalName, btnModalName, btnResetName) {
         this.count = 0;
-        this.counter = document.querySelector('.modal__clicked-info');
-        this.resetBtn = document.querySelector('.button--reset');
-        this.modal = document.querySelector([name]);
-        this.btnModalHandler();
+        this.modal = document.querySelector(`.${[modalName]}`);
+        this.counter = document.querySelector(`.${[modalName]}__count`);
+        this.resetBtn = document.querySelector(`.${[btnResetName]}`);
+        this.mountingComponent(btnModalName);
+    }
+
+    mountingComponent(btnModalName) {
+        this.btnModalHandler(btnModalName);
+        this.handleLocalStorage();
         this.getClickTarget();
         this.resetBtnHandler();
-        this.handleLocalStorage();
     }
 
     modalVisibilityHandler() {
-        this.modal.classList.toggle('modal__hidden');
+        this.modal.classList.toggle(`modal__hidden`);
     }
 
-    btnModalHandler() {
-        const btn = document.querySelector('.button--modal')
+    btnModalHandler(btnModalName) {
+        const btn = document.querySelector(`.${[btnModalName]}`);
         btn.addEventListener('click',() => {
             this.modalVisibilityHandler();
             this.incrementCounter();
@@ -106,7 +110,9 @@ class Modal {
 
     handleClickTarget(e) {
        const {target} = e;
-       (target.closest('.modal__exit-icon') || target.closest('.modal__wrapper') === null) ? this.modalVisibilityHandler() : null; 
+       if (target.closest('.modal__exit-icon') || !target.closest('.modal__wrapper')) {
+            this.modalVisibilityHandler()
+        } 
     }
 
     incrementCounter() {
@@ -117,28 +123,30 @@ class Modal {
     }
 
     resetBtnHandler() {
-        this.resetBtn.addEventListener('click', () => {
-            this.count = 0;
-            this.modalVisibilityHandler();
-        })
+        this.resetBtn.addEventListener('click', this.resetCounter.bind(this))
+    }
+
+    resetCounter() {
+        this.useStorage(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["b" /* CLEAR */]);
+        this.modalVisibilityHandler();
     }
 
     handleLocalStorage() {
-       localStorage.getItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["b" /* COUNT */]) === null ? this.useStorage(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["a" /* SET */]) : this.useStorage(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["c" /* GET */]);
+       localStorage.getItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["c" /* COUNT */]) === null ? this.useStorage(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["a" /* SET */]) : this.useStorage(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["d" /* GET */]);
     }
 
     useStorage(action) {
         switch (action) {
-            case __WEBPACK_IMPORTED_MODULE_0__utils_helpers__["c" /* GET */] :
-                const storage = JSON.parse(localStorage.getItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["b" /* COUNT */]));
-                this.count = storage;
+            case __WEBPACK_IMPORTED_MODULE_0__utils_helpers__["d" /* GET */] :
+                const getStorage = JSON.parse(localStorage.getItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["c" /* COUNT */]));
+                this.count = getStorage;
                 break;
-            case __WEBPACK_IMPORTED_MODULE_0__utils_helpers__["d" /* CLEAR */] :
+            case __WEBPACK_IMPORTED_MODULE_0__utils_helpers__["b" /* CLEAR */] :
                 this.count = 0;
-                storage = localStorage.setItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["b" /* COUNT */], JSON.stringify(this.count));
+                localStorage.setItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["c" /* COUNT */], JSON.stringify(this.count));
                 break;
             case __WEBPACK_IMPORTED_MODULE_0__utils_helpers__["a" /* SET */] : 
-                localStorage.setItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["b" /* COUNT */], JSON.stringify(this.count));
+                localStorage.setItem(__WEBPACK_IMPORTED_MODULE_0__utils_helpers__["c" /* COUNT */], JSON.stringify(this.count));
                 break;
         }
     }
@@ -156,16 +164,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Modal__ = __webpack_require__(0);
 
 
-const modalAlert = new __WEBPACK_IMPORTED_MODULE_0__components_Modal__["a" /* default */]('.modal');
+const modalAlert = new __WEBPACK_IMPORTED_MODULE_0__components_Modal__["a" /* default */]('modalAlert','button--modal','button--reset');
 
 /***/ }),
 /* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CLEAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return GET; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return COUNT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CLEAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return GET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return COUNT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET; });
 const COUNT = 'COUNT';
 const CLEAR = 'CLEAR';

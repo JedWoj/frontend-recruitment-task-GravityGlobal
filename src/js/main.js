@@ -1,3 +1,3 @@
 import Modal from "./components/Modal";
 
-const modalAlert = new Modal('.modal');
+const modalAlert = new Modal('modalAlert','button--modal','button--reset');
